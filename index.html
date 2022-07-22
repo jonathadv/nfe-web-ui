@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+
+    <title>Hello, world!</title>
+</head>
+
+<body class="text-center">
+    <h1>NFe</h1>
+
+
+
+    <div class="wrapper">
+        <div class="navbar navbar-static-top navbar-inverse"
+           role="navigation" aria-label="navbar">
+           <div class="container">
+              <span>
+              <a class='navbar-brand' rel="nofollow" href='/nfe-reader'>
+              NFe Reader
+              </a>
+              </span>
+              <ul class="nav navbar-nav pull-right">
+                 <li><a href='/auth/login/?next=/'>Log in</a></li>
+              </ul>
+           </div>
+        </div>
+        <div class="container">
+           <ul class="breadcrumb">
+              <li class="active"><a href="/">Api Root</a></li>
+           </ul>
+           <div id="content" role="main" aria-label="content">
+              <style>
+                 #reader__dashboard_section_csr {
+                 }
+              </style>
+              <div style="container" id="reader"></div>
+              <div class="tabbable">
+                 <div class="well tab-content">
+                    <div class="tab-pane active" id="post-object-form">
+                       <form id="nfe-form-input" action="http://192.168.1.92:8000/nfe-scan/" method="POST" enctype="multipart/form-data"
+                          class="form-horizontal" novalidate="">
+                          <fieldset>
+                             <div class="form-group ">
+                                <label class="col-sm-2 control-label ">
+                                NFe url
+                                </label>
+                                <div>
+                                   <input id="nfe-url-input" name="url" class="form-control" type="url" value="" placeholder="https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx?p=xyz">
+                                </div>
+                             </div>
+                             <div class="form-actions">
+                                <button class="btn btn-primary js-tooltip" title=""
+                                   data-original-title="Make a POST request on the Nfe List resource">POST
+                                </button>
+                             </div>
+                          </fieldset>
+                       </form>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <!-- /.content -->
+        </div>
+        <!-- /.container -->
+     </div>
+     <!-- ./wrapper -->
+     
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <script src="/static/html5-qrcode.min.js"></script>
+    <script src="/static/nfe-reader.js"></script>
+</body>
+</html>
