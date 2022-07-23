@@ -16,70 +16,89 @@ var html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 
 html5QrcodeScanner.render(onScanSuccess, onScanError);
 
 
-function applyStyle() {
-    console.log("###  applyStyle")
-    try {
-        for (let item of document.getElementsByTagName("button")) {
-            if (item.type != "button"){
-                item.className="btn btn-outline-info";
-                item.type="button";
-            }        
+function applyStyleToButtons() {    
+    for (let item of document.getElementsByTagName("button")) {
+        console.log("Applying style to ", item)
+        item.className="btn btn-outline-info";
+        item.type="button";
+    }
+  }
+
+  function applyStyleToRequiredButtons() {    
+    var requiredButtons = ["Start Scanning", "Stop Scanning"]
+
+    for (let item of document.getElementsByTagName("button")) {
+        console.log("Applying style to ", item)
+        item.className="btn btn-outline-info";
+        item.type="button";
+
+        if (requiredButtons.includes(item.textContent)){
+            requiredButtons.pop(requiredButtons.indexOf(item.textContent))
         }
-    } catch(err){
-        alert(err)
-    }        
-}
-    
+    }
+
+    if (requiredButtons.length > 1) {
+        throw new Error("None of required buttons " + requiredButtons + " waren't available for style changes.")
+    }
+  }
+
 
 function fixReaderDiv() {
-    try {
-        document.getElementById("reader").style=""
-        document.getElementById('reader__dashboard_section_csr').style=""
-    } catch(err){
-        alert(err)
-    }        
+    document.getElementById("reader").style=""
+    document.getElementById('reader__dashboard_section_csr').style=""
 }
 
 
 function fixScanButton() {
-    try {
-        var scanButton = document.getElementById("reader__camera_permission_button")
+    var scanButton = document.getElementById("reader__camera_permission_button")
+    if (scanButton) {
         scanButton.textContent = "Scan"
         scanButton.addEventListener("click", () => {
-            startLoader()
-            setTimeout(() => {
+            runWithRetries(()=>{
                 stopLoader()
-                applyStyle()
-            }, 3000);
-        })
-    } catch(err){
-        alert(err)
-    }        
-}
-
-
-function stopLoader() {
-    try {
-        document.getElementById("wrapper").className = "wrapper"
-        document.getElementById("loader").style = "display:none"
-    }catch(err){
-        alert(err)
+                applyStyleToRequiredButtons()
+            });
+        });
     }
     
 }
 
-function startLoader() {
-    try {
-        document.getElementById("wrapper").className = "blur wrapper"
-        document.getElementById("loader").style = "display:block"
-    }catch(err){
-        alert(err)
-    }        
+
+function stopLoader(counter) {
+    document.getElementById("wrapper").className = "wrapper"
+    document.getElementById("loader").style = "display:none"
 }
 
 
-setTimeout(() => {
-    applyStyle()
-    fixScanButton()
-    stopLoader() 
-}, 3000);
+
+
+function startLoader(counter) {
+    document.getElementById("wrapper").className = "blur wrapper"
+    document.getElementById("loader").style = "display:block"
+}
+
+function runWithRetries(func, numOfRetries = 20) {
+    console.log("Running function, ", func, "; numOfRetries=", numOfRetries)
+
+    try {
+        func()
+    } catch (err) {
+        console.log("Error fount in ", func, " error: ", err, "; numOfRetries=", numOfRetries)
+
+        if (numOfRetries <= 0){
+            alert("Error: " + err)
+            return
+        }
+
+        setTimeout(() => {
+            runWithRetries(func, --numOfRetries)
+        }, 500);
+    }
+}
+
+
+runWithRetries(applyStyleToButtons)
+runWithRetries(fixScanButton)
+runWithRetries(fixReaderDiv)
+runWithRetries(stopLoader)
+
