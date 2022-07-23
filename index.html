@@ -9,6 +9,13 @@
     <title>Hello, world!</title>
 </head>
 
+<script>
+  var loc = window.location.href + '';
+  if (loc.indexOf('http://') ==  0 && window.location.hostname != 'localhost'){
+    window.location.href = loc.replace('http://','https://');
+  }
+</script>
+
 <body class="text-center">
     <h1>NFe</h1>
 
@@ -68,7 +75,7 @@
         <!-- /.container -->
      </div>
      <!-- ./wrapper -->
-     
+
 
 
 
