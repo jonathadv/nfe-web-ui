@@ -79,13 +79,13 @@ select {
 
     <div id="wrapper" class="blur wrapper">
       <h1>NFe scanner</h1>
-        <div class="container">
-           <div id="content" role="main" aria-label="content">
+        <div class="container card">
+           <div id="content" role="main" aria-label="content" style="margin: 10px;">
               <div style="container" id="reader"></div>
               <div class="tabbable">
                  <div class="well tab-content">
-                    <div class="tab-pane active" id="post-object-form">
-                       <form id="nfe-form-input" action="http://192.168.1.92:8090/nfe-scan/" method="POST" enctype="multipart/form-data"
+                    <div class="tab-pane active" id="post-object-form">                    
+                       <form id="nfe-form-input" action="" method="POST" enctype="multipart/form-data"
                           class="form-horizontal" novalidate="">
                           <fieldset>
                              <div class="form-group ">
@@ -97,17 +97,32 @@ select {
                                 </div>
                              </div>
                              <div class="form-actions">
-                              <input class="btn btn-outline-info" type="submit" value="Submit">                      
+                              <input class="btn btn-outline-info" type="submit" value="Submit" onclick="setFormUrl()">                      
                              </div>
                           </fieldset>
                        </form>
                     </div>
                  </div>
               </div>
-           </div>
-           <!-- /.content -->
+           </div>        
         </div>
-        <!-- /.container -->
+
+        <div class="container card" role="main" aria-label="content" style="margin-top: 50px;">
+         <div class="content">         
+            <h3>Settings</h3>
+            <div class="">
+               <div class="form-group ">
+                  <label class="col-sm-2 control-label ">
+                  NFe Web Server
+                  </label>
+                  <div>
+                     <input id="nfe-server-address" name="url" class="form-control" type="url" value="http://nfe-internal.daguerre.com.br/nfeweb/nfe-scan/">
+                  </div>
+               </div>
+            </div>
+         </div>
+       </div>
+       
      </div>
      <!-- ./wrapper -->
 

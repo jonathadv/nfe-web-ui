@@ -2,7 +2,8 @@ function onScanSuccess(decodedText, decodedResult) {
     // Handle on success condition with the decoded text or result.
     console.log(`Scan result: ${decodedText}`, decodedResult);
     html5QrcodeScanner.clear();
-
+    
+    setFormUrl()
     document.getElementById('nfe-url-input').value=decodedResult.decodedText
     document.getElementById('nfe-form-input').submit()
 }
@@ -84,3 +85,8 @@ function forEver(){
 }
 
 forEver()
+
+
+function setFormUrl(){    
+    document.getElementById("nfe-form-input").action = document.getElementById("nfe-server-address").value;
+}
